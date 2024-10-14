@@ -10,6 +10,9 @@ class Employee:
     def display_info(self):
         return {'name': self.name, 'id': self.id, 'position': self.position, 'salary': self.salary}
 
+# Initial empty employee list
+employee_list = []
+
 # Prompts user to enter employee info and adds to directory
 def add_employee():
     print("Adding employee...")
@@ -26,8 +29,18 @@ def add_employee():
     employee_list.append(employee)
     print("Employee profile created successfully")
 
-# Initial empty employee list
-employee_list = []
+# Checks for employee in list and returns info and removes employee
+def remove_employee():
+    if not employee_list:
+        print("No employee profiles found. Please add an employee first.")
+        return
+    employee_id = input("Enter the employee ID to remove: ")
+    for employee in employee_list:
+        if employee.id == employee_id:
+            employee_list.remove(employee)
+            print(f"Employee {employee.name} (ID: {employee.id}) has been removed.")
+            return
+    print("Employee not found.")
 
 # Checks for empty employee list and returns full directory using Tabulate      
 def employee_directory():
@@ -63,16 +76,19 @@ def menu():
         print("\n*** Payroll System Menu ***")
         print("1. View Employee Directory")
         print("2. Add Employee")
-        print("3. Find Employee")
-        print("4. Exit")
+        print("3. Remove Employee")
+        print("4. Find Employee")
+        print("5. Exit")
         choice = input("Enter your choice: ")
         if choice == '1':
             employee_directory()
         elif choice == '2':
             add_employee()
         elif choice == '3':
-            employee_lookup()
+            remove_employee()
         elif choice == '4':
+            employee_lookup()
+        elif choice == '5':
             print("Exiting payroll system.")
             break
         else:
