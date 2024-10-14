@@ -1,4 +1,4 @@
-employee_list = []
+from tabulate import tabulate
 
 # Employee class to store info
 class Employee:
@@ -26,18 +26,17 @@ def add_employee():
     employee_list.append(employee)
     print("Employee profile created successfully")
 
-# Checks for empty employee list and returns full directory       
+# Initial empty employee list
+employee_list = []
+
+# Checks for empty employee list and returns full directory using Tabulate      
 def employee_directory():
     if not employee_list:
         print("There are currently no employees in the directory.")
         return
-    print("\nEmployee Directory:")
-    for employee in employee_list:
-        info = employee.display_info()
-        print(f"\nEmployee ID: {info['id']}")
-        print(f"Name: {info['name']}")
-        print(f"Position: {info['position']}")
-        print(f"Salary: ${info['salary']}")
+    headers = ["Name", "ID", "Position", "Salary", "Department"]
+    table = [emp.display_info().values() for emp in employee_list]
+    print(tabulate(table, headers, tablefmt="grid"))
 
 # Checks empty employee list, then searches for employee by ID and returns if found 
 def employee_lookup():
